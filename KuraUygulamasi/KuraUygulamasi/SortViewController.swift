@@ -33,7 +33,7 @@ class SortViewController: UIViewController {
     }
     
     let inputCellSize = 64.5
-    let resultCellSize = 64.0
+    let resultCellSize = 64.5
     
     enum Table : Int {
         case input, result
@@ -60,8 +60,8 @@ class SortViewController: UIViewController {
         inputItems.append(InputModel(id: 1, value: ""))
         inputItems.append(InputModel(id: 2, value: ""))
         
-        resultItems.append(InputModel(id: 1, value: "asasd"))
-        resultItems.append(InputModel(id: 2, value: "asasd"))
+        resultItems.append(InputModel(id: 1, value: ""))
+        resultItems.append(InputModel(id: 2, value: ""))
 
         
         initVC()
@@ -109,11 +109,25 @@ class SortViewController: UIViewController {
         for item in inputItems {
             let indexPath = IndexPath(row: item.id - 1, section: 0)
             let multilineCell = inputTableview.cellForRow(at: indexPath) as! InputTableViewCell
-            inputItems[item.id - 1].value = multilineCell.input.text ?? ""
+            if multilineCell.input.text ?? "" != ""{
+                inputItems[item.id - 1].value = multilineCell.input.text ?? ""
+            }else{
+                let alert = UIAlertController(title: "Uyarı", message: "\(item.id). Alan boş", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+                
+            }
         }
         resultItems = inputItems.shuffled()
         orderResultNumbers()
         resultTableview.reloadData()
+        
+        if !resultShouldVisable {
+            resultShouldVisable = true
+            resultTitleLbl.isHidden = false
+            resultTableview.isHidden = false
+        }
     }
     
     func orderResultNumbers() {
@@ -136,11 +150,6 @@ class SortViewController: UIViewController {
     }
     
     @IBAction func orderBtnTapped(_ sender: Any) {
-        if !resultShouldVisable {
-            resultShouldVisable = true
-            resultTitleLbl.isHidden = false
-            resultTableview.isHidden = false
-        }
         orderAction()
         
         
@@ -152,6 +161,7 @@ class SortViewController: UIViewController {
     
 }
 
+//Tableview Delegate methods
 extension SortViewController :UITableViewDelegate, UITableViewDataSource, SelfSizedTableViewDelegate {
     func reloadTrigger(tag: Int) {
         if tag == Table.input.rawValue {
