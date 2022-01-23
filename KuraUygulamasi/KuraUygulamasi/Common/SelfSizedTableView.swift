@@ -10,6 +10,7 @@ import UIKit
 
 protocol SelfSizedTableViewDelegate : NSObject {
     func reloadTrigger(tag:Int)
+    func endUpdateTrigger(tag:Int)
 }
 
 class SelfSizedTableView : UITableView {
@@ -22,5 +23,12 @@ class SelfSizedTableView : UITableView {
         self.invalidateIntrinsicContentSize()
         self.layoutIfNeeded()
         selfSizedDelegate?.reloadTrigger(tag: self.tag)
+    }
+    
+    override func endUpdates() {
+        super.endUpdates()
+        self.invalidateIntrinsicContentSize()
+        self.layoutIfNeeded()
+        selfSizedDelegate?.endUpdateTrigger(tag: self.tag)
     }
 }

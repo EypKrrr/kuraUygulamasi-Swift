@@ -17,6 +17,11 @@ class InputTableViewCell: UITableViewCell {
 
     let field = ". Alan"
     
+    enum FieldType: String {
+        case defaultType = ". Alan"
+        case gift = ". Hediye"
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,6 +34,12 @@ class InputTableViewCell: UITableViewCell {
     
     func setLabel(index: Int){
         inputLabel.text = "\(index)\(field)"
+        input.text = ""
+    }
+    
+    func setLabel(index: Int, fieldType: FieldType){
+        inputLabel.text = "\(index)\(fieldType.rawValue)"
+        input.text = ""
     }
     
 }
