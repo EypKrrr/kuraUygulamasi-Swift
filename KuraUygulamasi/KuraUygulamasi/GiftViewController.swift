@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GiftViewController: UIViewController {
+class GiftViewController: BaseViewController {
 
     @IBOutlet weak var giftTableView: UITableView!
     

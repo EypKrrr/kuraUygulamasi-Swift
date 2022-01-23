@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TeamsViewController: UIViewController {
+class TeamsViewController: BaseViewController {
     
     @IBOutlet weak var teamsTableView: UITableView!
     
@@ -20,20 +20,10 @@ class TeamsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addGesture()
-
         inputItems.append(InputModel(id: 1, value: ""))
         inputItems.append(InputModel(id: 2, value: ""))
 
-        
         initVC()
-    }
-    
-
-    
-    func addGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
     
     func initVC() {
@@ -55,11 +45,6 @@ class TeamsViewController: UIViewController {
         
         let teamsResultCell = UINib(nibName: TeamsResultTableViewCell.identifier, bundle: nil)
         teamsTableView.register(teamsResultCell, forCellReuseIdentifier: TeamsResultTableViewCell.identifier)
-    }
-    
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     func assignTeams() {

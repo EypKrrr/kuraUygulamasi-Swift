@@ -8,7 +8,7 @@
 import UIKit
 
 
-class SortViewController: UIViewController {
+class SortViewController: BaseViewController {
     
     @IBOutlet weak var sortTableView: UITableView!
     
@@ -19,7 +19,6 @@ class SortViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addGesture()
         
         inputItems.append(InputModel(id: 1, value: ""))
         inputItems.append(InputModel(id: 2, value: ""))
@@ -45,11 +44,6 @@ class SortViewController: UIViewController {
     
     @objc func rightBarButtonTapped(){
         print("Save menu icon tapped")
-    }
-    
-    func addGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
     
     func initVC() {
@@ -111,10 +105,6 @@ class SortViewController: UIViewController {
         }
         let resultTitleIndex = IndexPath(item: 0, section: 3)
         sortTableView.scrollToRow(at: resultTitleIndex, at: .middle, animated: true)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     func cleanPage(){
