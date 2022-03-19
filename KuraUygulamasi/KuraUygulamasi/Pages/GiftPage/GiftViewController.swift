@@ -28,7 +28,7 @@ class GiftViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addLeftBarButton()
         giftItems.append(InputModel(id: 1, value: ""))
         
         fieldItems.append(InputModel(id: 1, value: ""))

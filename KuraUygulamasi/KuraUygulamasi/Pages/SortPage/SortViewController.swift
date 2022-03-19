@@ -25,11 +25,11 @@ class SortViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addLeftBarButton()
+        addRightBarButton()
         inputItems.append(InputModel(id: 1, value: ""))
         inputItems.append(InputModel(id: 2, value: ""))
         initVC()
-        addRightBarButton()
     }
     
     func addRightBarButton() {

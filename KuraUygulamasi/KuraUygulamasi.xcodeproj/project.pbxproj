@@ -197,17 +197,13 @@
 				5D2AADE3270E2F0500061A06 /* Models */,
 				5D6EA8C72700A28300F4D6B3 /* MainPage */,
 				5D6EA8B92700A25E00F4D6B3 /* Common */,
+				5DF06DF227E67B0C004DCAF8 /* Pages */,
 				5D6EA88327009C9600F4D6B3 /* AppDelegate.swift */,
 				5D6EA88527009C9600F4D6B3 /* SceneDelegate.swift */,
-				5D6EA88727009C9600F4D6B3 /* ViewController.swift */,
-				5D6EA8D72700A29E00F4D6B3 /* SortViewController.swift */,
-				5D6EA88927009C9600F4D6B3 /* Main.storyboard */,
 				5D6EA88F27009C9700F4D6B3 /* Assets.xcassets */,
 				5D6EA89127009C9700F4D6B3 /* LaunchScreen.storyboard */,
 				5D6EA89427009C9700F4D6B3 /* Info.plist */,
 				5D6EA88C27009C9600F4D6B3 /* KuraUygulamasi.xcdatamodeld */,
-				5D6EA8DC2704CE8B00F4D6B3 /* TeamsViewController.swift */,
-				5D902E892797EBB700E281E6 /* GiftViewController.swift */,
 			);
 			path = KuraUygulamasi;
 			sourceTree = "<group>";
@@ -342,6 +338,50 @@
 				5D27BD8B27DE1D9A001AFC95 /* UIFont+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5DF06DF227E67B0C004DCAF8 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				5D6EA88927009C9600F4D6B3 /* Main.storyboard */,
+				5DF06DF327E67B25004DCAF8 /* MainPage */,
+				5DF06DF427E67B65004DCAF8 /* SortPage */,
+				5DF06DF527E67B79004DCAF8 /* TeamsPage */,
+				5DF06DF627E67B86004DCAF8 /* GiftPage */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		5DF06DF327E67B25004DCAF8 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				5D6EA88727009C9600F4D6B3 /* ViewController.swift */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
+		5DF06DF427E67B65004DCAF8 /* SortPage */ = {
+			isa = PBXGroup;
+			children = (
+				5D6EA8D72700A29E00F4D6B3 /* SortViewController.swift */,
+			);
+			path = SortPage;
+			sourceTree = "<group>";
+		};
+		5DF06DF527E67B79004DCAF8 /* TeamsPage */ = {
+			isa = PBXGroup;
+			children = (
+				5D6EA8DC2704CE8B00F4D6B3 /* TeamsViewController.swift */,
+			);
+			path = TeamsPage;
+			sourceTree = "<group>";
+		};
+		5DF06DF627E67B86004DCAF8 /* GiftPage */ = {
+			isa = PBXGroup;
+			children = (
+				5D902E892797EBB700E281E6 /* GiftViewController.swift */,
+			);
+			path = GiftPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -692,7 +732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eyukorurer.KuraUygulamasi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eyupkorurer.KuraUygulamasi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -712,7 +752,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eyukorurer.KuraUygulamasi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eyupkorurer.KuraUygulamasi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
