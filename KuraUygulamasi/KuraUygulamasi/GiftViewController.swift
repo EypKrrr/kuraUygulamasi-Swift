@@ -11,6 +11,15 @@ class GiftViewController: BaseViewController {
 
     @IBOutlet weak var giftTableView: UITableView!
     
+    enum TableSection: Int {
+        case giftInput
+        case twoButton
+        case input
+        case oneButton
+        case resultTitle
+        case result
+    }
+    
     var giftItems : [InputModel] = []
     var fieldItems : [InputModel] = []
     var giftResults : [GiftResultModel] = []
@@ -51,7 +60,7 @@ class GiftViewController: BaseViewController {
         giftResults.removeAll()
         
         for item in giftItems {
-            let indexPath = IndexPath(row: item.id - 1, section: 0)
+            let indexPath = IndexPath(row: item.id - 1, section: TableSection.giftInput.rawValue)
             let giftCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
             if giftCell.input.text ?? "" != ""{
                 let giftText = giftCell.input.text ?? ""
@@ -65,7 +74,7 @@ class GiftViewController: BaseViewController {
         }
         
         for item in fieldItems {
-            let indexPath = IndexPath(row: item.id - 1, section: 2)
+            let indexPath = IndexPath(row: item.id - 1, section: TableSection.input.rawValue)
             let fieldCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
             if fieldCell.input.text ?? "" != ""{
                 fieldItems[item.id - 1].value = fieldCell.input.text ?? ""
@@ -90,13 +99,13 @@ class GiftViewController: BaseViewController {
     
     func insertResultRows(){
         if giftTableView.numberOfSections == 4{
-            let indexSet = IndexSet(integersIn: 4...5)
+            let indexSet = IndexSet(integersIn: TableSection.resultTitle.rawValue...TableSection.result.rawValue)
             giftTableView.insertSections(indexSet, with: .automatic)
         }else{
-            let indexSet = IndexSet(integer: 5)
+            let indexSet = IndexSet(integer: TableSection.result.rawValue)
             giftTableView.reloadSections(indexSet, with: .automatic)
         }
-        let resultTitleIndex = IndexPath(item: 0, section: 4)
+        let resultTitleIndex = IndexPath(item: 0, section: TableSection.resultTitle.rawValue)
         giftTableView.scrollToRow(at: resultTitleIndex, at: .middle, animated: true)
     }
     
@@ -126,50 +135,50 @@ extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
+        if section == TableSection.giftInput.rawValue{
             return giftItems.count
-        }else if section == 1{
+        }else if section == TableSection.twoButton.rawValue{
             return 1
-        }else if section == 2{
+        }else if section == TableSection.input.rawValue{
             return fieldItems.count
-        }else if section == 3{
+        }else if section == TableSection.oneButton.rawValue{
             return 1
-        }else if section == 4{
+        }else if section == TableSection.resultTitle.rawValue{
             return 1
-        }else if section == 5{
+        }else if section == TableSection.result.rawValue{
             return giftResults.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{
+        if indexPath.section == TableSection.giftInput.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: giftItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: giftItems[indexPath.row].value, fieldType: .gift)
             cell.delegate = self
             return cell
-        }else if indexPath.section == 1{
+        }else if indexPath.section == TableSection.twoButton.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.identifier, for: indexPath) as! TwoButtonTableViewCell
             cell.setButtonTitles(leftBtnTitle: "Hediye Ekle", rightBtnTitle: "Yeni Kişi Ekle")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
-        }else if indexPath.section == 2{
+        }else if indexPath.section == TableSection.input.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: fieldItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: fieldItems[indexPath.row].value, fieldType: .defaultType)
             cell.delegate = self
             return cell
-        }else if indexPath.section == 3{
+        }else if indexPath.section == TableSection.oneButton.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: OneButtonTableViewCell.identifier, for: indexPath) as! OneButtonTableViewCell
             cell.setButtonTitle(title: "Hediyeleri Dağıt")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
-        }else if indexPath.section == 4{
+        }else if indexPath.section == TableSection.resultTitle.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.identifier, for: indexPath) as! ResultTitleTableViewCell
             cell.setTitle(text: "Talihliler")
             return cell
-        }else if indexPath.section == 5{
+        }else if indexPath.section == TableSection.result.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: GiftResultTableViewCell.identifier, for: indexPath) as! GiftResultTableViewCell
             cell.setFields(leftText: giftResults[indexPath.row].giftValue, rightText: giftResults[indexPath.row].personName)
             return cell
@@ -183,7 +192,7 @@ extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension GiftViewController: TwoButtonCellDelegate{
     func leftButtonTapped(tag: Int) {
-        if tag == 1 {
+        if tag == TableSection.twoButton.rawValue {
             if giftItems.count == fieldItems.count {
                 showAlert(title: "Uyarı", message: "Hediye sayısı kişi sayısından fazla olamaz", buttonTitle: "Tamam", handler: nil)
                 return
@@ -191,7 +200,7 @@ extension GiftViewController: TwoButtonCellDelegate{
                 let newId = self.giftItems.last!.id + 1
                 self.giftItems.append(InputModel(id: newId, value: ""))
                 self.giftTableView.beginUpdates()
-                let selectedIndexPath = IndexPath(item:newId-1 , section: 0)
+                let selectedIndexPath = IndexPath(item:newId-1 , section: TableSection.giftInput.rawValue)
                 self.giftTableView.insertRows(at: [selectedIndexPath], with: .automatic)
                 self.giftTableView.endUpdates()
                 
@@ -200,11 +209,11 @@ extension GiftViewController: TwoButtonCellDelegate{
     }
     
     func rightButtonTapped(tag: Int) {
-        if tag == 1 {
+        if tag == TableSection.twoButton.rawValue {
             let newId = self.fieldItems.last!.id + 1
             self.fieldItems.append(InputModel(id: newId, value: ""))
             self.giftTableView.beginUpdates()
-            let selectedIndexPath = IndexPath(item:newId-1 , section: 2)
+            let selectedIndexPath = IndexPath(item:newId-1 , section: TableSection.input.rawValue)
             self.giftTableView.insertRows(at: [selectedIndexPath], with: .automatic)
             self.giftTableView.endUpdates()
         }
@@ -213,7 +222,7 @@ extension GiftViewController: TwoButtonCellDelegate{
 
 extension GiftViewController: OneButtonTableViewCellDelegate {
     func buttonTapped(tag: Int) {
-        if tag == 3 {
+        if tag == TableSection.oneButton.rawValue {
             distributeGifts()
         }
     }
@@ -223,14 +232,14 @@ extension GiftViewController: OneButtonTableViewCellDelegate {
 
 extension GiftViewController: InputCellDelegate {
     func trashButtonTapped(row: Int, section: Int) {
-        if section == 0 && giftItems.count <= 1 {
+        if section == TableSection.giftInput.rawValue && giftItems.count <= 1 {
             showAlert(title: "Uyarı", message: "Hediye sayısı 1'den az olamaz", buttonTitle: "Tamam", handler: nil)
             return
         }else if section == 2 && fieldItems.count <= 2 {
             showAlert(title: "Uyarı", message: "Kişi sayısı 2'den az olamaz", buttonTitle: "Tamam", handler: nil)
             return
         }else{
-            if section == 0 {
+            if section == TableSection.giftInput.rawValue {
                 for (index, item) in giftItems.enumerated() {
                     let indexPath = IndexPath(row: item.id - 1, section: section)
                     let inputCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
@@ -243,7 +252,7 @@ extension GiftViewController: InputCellDelegate {
                 
                 let indexSet = IndexSet(integer: section)
                 giftTableView.reloadSections(indexSet, with: .automatic)
-            }else if section == 2 {
+            }else if section == TableSection.input.rawValue {
                 for (index, item) in fieldItems.enumerated() {
                     let indexPath = IndexPath(row: item.id - 1, section: section)
                     let inputCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell

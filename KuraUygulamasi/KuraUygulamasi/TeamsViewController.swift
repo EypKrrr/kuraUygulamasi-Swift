@@ -11,6 +11,14 @@ class TeamsViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    enum TableSection: Int {
+        case input
+        case teamCountPicker
+        case twoButton
+        case resultTitle
+        case result
+    }
+    
     var inputItems : [InputModel] = []
     var resultItems : [TeamsResultModel] = []
     private var resultShouldVisable = false
@@ -49,7 +57,7 @@ class TeamsViewController: BaseViewController {
         guard let teamCount = checkTeamCount() else { return }
         
         for item in inputItems {
-            let indexPath = IndexPath(row: item.id - 1, section: 0)
+            let indexPath = IndexPath(row: item.id - 1, section: TableSection.input.rawValue)
             let multilineCell = tableView.cellForRow(at: indexPath) as! InputTableViewCell
             if multilineCell.input.text ?? "" != ""{
                 inputItems[item.id - 1].value = multilineCell.input.text ?? ""
@@ -73,13 +81,13 @@ class TeamsViewController: BaseViewController {
         }
         
         if tableView.numberOfSections == 3{
-            let indexSet = IndexSet(integersIn: 3...4)
+            let indexSet = IndexSet(integersIn: TableSection.resultTitle.rawValue...TableSection.result.rawValue)
             tableView.insertSections(indexSet, with: .automatic)
         }else{
-            let indexSet = IndexSet(integer: 4)
+            let indexSet = IndexSet(integer: TableSection.result.rawValue)
             tableView.reloadSections(indexSet, with: .automatic)
         }
-        let resultTitleIndex = IndexPath(item: 0, section: 3)
+        let resultTitleIndex = IndexPath(item: 0, section: TableSection.resultTitle.rawValue)
         tableView.scrollToRow(at: resultTitleIndex, at: .middle, animated: true)
     }
     
@@ -89,7 +97,7 @@ class TeamsViewController: BaseViewController {
         inputItems.removeAll()
         resultItems.removeAll()
         
-        let pickerIndex = IndexPath(row: 0, section: 2)
+        let pickerIndex = IndexPath(row: 0, section: TableSection.teamCountPicker.rawValue)
         let pickerCell = tableView.cellForRow(at: pickerIndex) as! WheelPickerTableViewCell
         pickerCell.pickerTextField.text = ""
         
@@ -100,7 +108,7 @@ class TeamsViewController: BaseViewController {
     }
     
     private func checkTeamCount() -> Int?{
-        let pickerIndex = IndexPath(row: 0, section: 1)
+        let pickerIndex = IndexPath(row: 0, section: TableSection.teamCountPicker.rawValue)
         let pickerCell = tableView.cellForRow(at: pickerIndex) as! WheelPickerTableViewCell
         
         if let teamCount = pickerCell.teamCount, teamCount > 0{
@@ -130,41 +138,41 @@ extension TeamsViewController :  UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
+        if section == TableSection.input.rawValue{
             return inputItems.count
-        }else if section == 1{
+        }else if section == TableSection.teamCountPicker.rawValue{
             return 1
-        }else if section == 2{
+        }else if section == TableSection.twoButton.rawValue{
             return 1
-        }else if section == 3{
+        }else if section == TableSection.resultTitle.rawValue{
             return 1
-        }else if section == 4{
+        }else if section == TableSection.result.rawValue{
             return resultItems.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{
+        if indexPath.section == TableSection.input.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: inputItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: inputItems[indexPath.row].value, fieldType: .defaultType)
             cell.delegate = self
             return cell
-        }else if indexPath.section == 1{
+        }else if indexPath.section == TableSection.teamCountPicker.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: WheelPickerTableViewCell.identifier, for: indexPath) as! WheelPickerTableViewCell
             cell.setCell(pickerTitle: "Takım Sayısı")
             return cell
-        }else if indexPath.section == 2{
+        }else if indexPath.section == TableSection.twoButton.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.identifier, for: indexPath) as! TwoButtonTableViewCell
             cell.setButtonTitles(leftBtnTitle: "Yeni Kişi Ekle", rightBtnTitle: "Takımlara Ayır")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
-        }else if indexPath.section == 3{
+        }else if indexPath.section == TableSection.resultTitle.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.identifier, for: indexPath) as! ResultTitleTableViewCell
             cell.setTitle(text: "Takımlar")
             return cell
-        }else if indexPath.section == 4{
+        }else if indexPath.section == TableSection.result.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: TeamsResultTableViewCell.identifier, for: indexPath) as! TeamsResultTableViewCell
             cell.fillCell(currentTeam: self.resultItems[indexPath.row])
             return cell
@@ -178,18 +186,18 @@ extension TeamsViewController :  UITableViewDelegate, UITableViewDataSource{
 //TwoButtonCell Delegate methods
 extension TeamsViewController : TwoButtonCellDelegate{
     func leftButtonTapped(tag: Int) {
-        if tag == 2{
+        if tag == TableSection.twoButton.rawValue{
             let newId = self.inputItems.last!.id + 1
             inputItems.append(InputModel(id: newId, value: ""))
             tableView.beginUpdates()
-            let selectedIndexPath = IndexPath(item:newId-1 , section: 0)
+            let selectedIndexPath = IndexPath(item:newId-1 , section: TableSection.input.rawValue)
             tableView.insertRows(at: [selectedIndexPath], with: .automatic)
             tableView.endUpdates()
         }
     }
     
     func rightButtonTapped(tag: Int) {
-        if tag == 2{
+        if tag == TableSection.twoButton.rawValue{
             assignTeams()
         }
     }

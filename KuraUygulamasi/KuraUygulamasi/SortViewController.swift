@@ -12,6 +12,13 @@ class SortViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    enum TableSection: Int {
+        case input
+        case twoButton
+        case resultTitle
+        case result
+    }
+    
     var inputItems : [InputModel] = []
     var resultItems : [InputModel] = []
     private var resultShouldVisable = false
@@ -23,8 +30,6 @@ class SortViewController: BaseViewController {
         inputItems.append(InputModel(id: 2, value: ""))
         initVC()
         addRightBarButton()
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 242/255, blue: 181/255, alpha: 1.0)
-
     }
     
     func addRightBarButton() {
@@ -67,7 +72,7 @@ class SortViewController: BaseViewController {
     
     func orderAction() {
         for item in inputItems {
-            let indexPath = IndexPath(row: item.id - 1, section: 0)
+            let indexPath = IndexPath(row: item.id - 1, section: TableSection.input.rawValue)
             let multilineCell = tableView.cellForRow(at: indexPath) as! InputTableViewCell
             if multilineCell.input.text ?? "" != ""{
                 inputItems[item.id - 1].value = multilineCell.input.text ?? ""
@@ -95,13 +100,13 @@ class SortViewController: BaseViewController {
     
     func insertResultRows(){
         if self.tableView.numberOfSections == 2{
-            let indexSet = IndexSet(integersIn: 2...3)
+            let indexSet = IndexSet(integersIn: TableSection.resultTitle.rawValue...TableSection.result.rawValue)
             self.tableView.insertSections(indexSet, with: .automatic)
         }else{
-            let indexSet = IndexSet(integer: 3)
+            let indexSet = IndexSet(integer: TableSection.result.rawValue)
             self.tableView.reloadSections(indexSet, with: .automatic)
         }
-        let resultTitleIndex = IndexPath(item: 0, section: 2)
+        let resultTitleIndex = IndexPath(item: 0, section: TableSection.resultTitle.rawValue)
         self.tableView.scrollToRow(at: resultTitleIndex, at: .middle, animated: true)
     }
     
@@ -116,7 +121,6 @@ class SortViewController: BaseViewController {
         
         self.tableView.reloadData()
     }
-    
 }
 
 //Tableview Delegate methods
@@ -129,61 +133,58 @@ extension SortViewController :UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
+        if section == TableSection.input.rawValue{
             return inputItems.count
-        }else if section == 1{
+        }else if section == TableSection.twoButton.rawValue{
             return 1
-        }else if section == 2{
+        }else if section == TableSection.resultTitle.rawValue{
             return 1
-        }else if section == 3{
+        }else if section == TableSection.result.rawValue{
             return resultItems.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{
+        if indexPath.section == TableSection.input.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: inputItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: inputItems[indexPath.row].value, fieldType: .defaultType)
             cell.delegate = self
             return cell
-        }else if indexPath.section == 1{
+        }else if indexPath.section == TableSection.twoButton.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.identifier, for: indexPath) as! TwoButtonTableViewCell
             cell.setButtonTitles(leftBtnTitle: "Yeni Kişi Ekle", rightBtnTitle: "Sıraya Sok")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
-        }else if indexPath.section == 2{
+        }else if indexPath.section == TableSection.resultTitle.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.identifier, for: indexPath) as! ResultTitleTableViewCell
             cell.setTitle(text: "Sıralama")
             return cell
-        }else if indexPath.section == 3{
+        }else if indexPath.section == TableSection.result.rawValue{
             let cell = tableView.dequeueReusableCell(withIdentifier: SortResultTableViewCell.identifier, for: indexPath) as! SortResultTableViewCell
             cell.setLabels(queText: resultItems[indexPath.row].id, descriptionText: resultItems[indexPath.row].value)
             return cell
         }
-        
         return UITableViewCell()
     }
-    
 }
 
 extension SortViewController: TwoButtonCellDelegate{
     func leftButtonTapped(tag: Int) {
-        if tag == 1{
+        if tag == TableSection.twoButton.rawValue{
             let newId = self.inputItems.last!.id + 1
             self.inputItems.append(InputModel(id: newId, value: ""))
             self.tableView.beginUpdates()
-            let selectedIndexPath = IndexPath(item:newId-1 , section: 0)
+            let selectedIndexPath = IndexPath(item:newId-1 , section: TableSection.input.rawValue)
             self.tableView.insertRows(at: [selectedIndexPath], with: .automatic)
             self.tableView.endUpdates()
         }
     }
     
     func rightButtonTapped(tag: Int) {
-        if tag == 1{
+        if tag == TableSection.twoButton.rawValue{
             orderAction()
         }
     }
@@ -209,5 +210,4 @@ extension SortViewController: InputCellDelegate {
             return
         }
     }
-    
 }
