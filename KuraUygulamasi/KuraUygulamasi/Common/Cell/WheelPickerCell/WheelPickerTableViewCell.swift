@@ -72,7 +72,7 @@ extension WheelPickerTableViewCell: UITextFieldDelegate{
         
         let doneButton = UIBarButtonItem(title: "Tamam", style: .plain, target: self, action: #selector(doneTapped))
         
-        let spaceButton = UIBarButtonItem(systemItem: .flexibleSpace)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         
         toolBar.setItems([spaceButton, doneButton], animated: false)

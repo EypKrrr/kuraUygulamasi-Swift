@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: BaseViewController {
 
     let collectionView = UICollectionView(frame: .zero , collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -22,9 +22,6 @@ class ViewController: UIViewController {
         collectionView.backgroundColor = .clear
         self.view.addSubview(collectionView)
         
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let navCon = storyboard.instantiateViewController(withIdentifier: "MainVC") as! UINavigationController
-//        self.navigatio
     }
     
     override func viewDidLayoutSubviews() {

@@ -13,6 +13,7 @@
 		5D03FC26277B825100BB62AF /* TeamsResultInnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D03FC24277B825100BB62AF /* TeamsResultInnerTableViewCell.xib */; };
 		5D03FC2B277B893300BB62AF /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D03FC2A277B893300BB62AF /* ResultModel.swift */; };
 		5D03FC30277B898B00BB62AF /* TeamsResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D03FC2F277B898B00BB62AF /* TeamsResultModel.swift */; };
+		5D27BD8C27DE1D9A001AFC95 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D27BD8B27DE1D9A001AFC95 /* UIFont+Ext.swift */; };
 		5D2AADE5270E2F1A00061A06 /* InputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2AADE4270E2F1A00061A06 /* InputModel.swift */; };
 		5D6EA88427009C9600F4D6B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6EA88327009C9600F4D6B3 /* AppDelegate.swift */; };
 		5D6EA88627009C9600F4D6B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6EA88527009C9600F4D6B3 /* SceneDelegate.swift */; };
@@ -43,6 +44,9 @@
 		5D902EB4279C203800E281E6 /* WheelPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D902EB2279C203800E281E6 /* WheelPickerTableViewCell.swift */; };
 		5D902EB5279C203800E281E6 /* WheelPickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D902EB3279C203800E281E6 /* WheelPickerTableViewCell.xib */; };
 		5D902ED0279DD98000E281E6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D902ECF279DD98000E281E6 /* BaseViewController.swift */; };
+		5DBB9A8F27CAC8BF0084788F /* OneButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB9A8D27CAC8BF0084788F /* OneButtonTableViewCell.swift */; };
+		5DBB9A9027CAC8BF0084788F /* OneButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DBB9A8E27CAC8BF0084788F /* OneButtonTableViewCell.xib */; };
+		5DBB9A9327CB97CB0084788F /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB9A9227CB97CB0084788F /* UIColor+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,7 @@
 		5D03FC24277B825100BB62AF /* TeamsResultInnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamsResultInnerTableViewCell.xib; sourceTree = "<group>"; };
 		5D03FC2A277B893300BB62AF /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		5D03FC2F277B898B00BB62AF /* TeamsResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsResultModel.swift; sourceTree = "<group>"; };
+		5D27BD8B27DE1D9A001AFC95 /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
 		5D2AADE4270E2F1A00061A06 /* InputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputModel.swift; sourceTree = "<group>"; };
 		5D6EA88027009C9600F4D6B3 /* KuraUygulamasi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KuraUygulamasi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D6EA88327009C9600F4D6B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +110,9 @@
 		5D902EB2279C203800E281E6 /* WheelPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelPickerTableViewCell.swift; sourceTree = "<group>"; };
 		5D902EB3279C203800E281E6 /* WheelPickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WheelPickerTableViewCell.xib; sourceTree = "<group>"; };
 		5D902ECF279DD98000E281E6 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		5DBB9A8D27CAC8BF0084788F /* OneButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneButtonTableViewCell.swift; sourceTree = "<group>"; };
+		5DBB9A8E27CAC8BF0084788F /* OneButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneButtonTableViewCell.xib; sourceTree = "<group>"; };
+		5DBB9A9227CB97CB0084788F /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +192,7 @@
 		5D6EA88227009C9600F4D6B3 /* KuraUygulamasi */ = {
 			isa = PBXGroup;
 			children = (
+				5DBB9A9127CB974A0084788F /* Extensions */,
 				5D902ECE279DD96600E281E6 /* Base */,
 				5D2AADE3270E2F0500061A06 /* Models */,
 				5D6EA8C72700A28300F4D6B3 /* MainPage */,
@@ -224,14 +233,7 @@
 		5D6EA8B92700A25E00F4D6B3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5D03FC17277B7E2C00BB62AF /* TeamsResultInnerCell */,
-				5D03FC16277B7D8F00BB62AF /* TeamsResultCell */,
-				5D6EA8CF2700A28D00F4D6B3 /* SortResultCell */,
-				5D6EA8BF2700A26900F4D6B3 /* InputCell */,
-				5D902EB1279C1F5400E281E6 /* WheelPickerCell */,
-				5D902EA627995A3200E281E6 /* GiftResultCell */,
-				5D902E9D27984EDF00E281E6 /* ResultTitleCell */,
-				5D902E8E2798362A00E281E6 /* TwoButtonCell */,
+				5DBB9A8527CABEC50084788F /* Cell */,
 				5D6EA8BA2700A25E00F4D6B3 /* SelfSizedTableView.swift */,
 			);
 			path = Common;
@@ -306,6 +308,40 @@
 				5D902ECF279DD98000E281E6 /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		5DBB9A8527CABEC50084788F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5DBB9A8C27CAC88B0084788F /* OneButtonCell */,
+				5D03FC17277B7E2C00BB62AF /* TeamsResultInnerCell */,
+				5D03FC16277B7D8F00BB62AF /* TeamsResultCell */,
+				5D6EA8CF2700A28D00F4D6B3 /* SortResultCell */,
+				5D6EA8BF2700A26900F4D6B3 /* InputCell */,
+				5D902EB1279C1F5400E281E6 /* WheelPickerCell */,
+				5D902EA627995A3200E281E6 /* GiftResultCell */,
+				5D902E9D27984EDF00E281E6 /* ResultTitleCell */,
+				5D902E8E2798362A00E281E6 /* TwoButtonCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		5DBB9A8C27CAC88B0084788F /* OneButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				5DBB9A8D27CAC8BF0084788F /* OneButtonTableViewCell.swift */,
+				5DBB9A8E27CAC8BF0084788F /* OneButtonTableViewCell.xib */,
+			);
+			path = OneButtonCell;
+			sourceTree = "<group>";
+		};
+		5DBB9A9127CB974A0084788F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5DBB9A9227CB97CB0084788F /* UIColor+Ext.swift */,
+				5D27BD8B27DE1D9A001AFC95 /* UIFont+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D6EA89327009C9700F4D6B3 /* LaunchScreen.storyboard in Resources */,
+				5DBB9A9027CAC8BF0084788F /* OneButtonTableViewCell.xib in Resources */,
 				5D6EA89027009C9700F4D6B3 /* Assets.xcassets in Resources */,
 				5D6EA8D32700A28D00F4D6B3 /* SortResultTableViewCell.xib in Resources */,
 				5D902EAA27995A5E00E281E6 /* GiftResultTableViewCell.xib in Resources */,
@@ -452,17 +489,20 @@
 				5D902ED0279DD98000E281E6 /* BaseViewController.swift in Sources */,
 				5D6EA88827009C9600F4D6B3 /* ViewController.swift in Sources */,
 				5D6EA88427009C9600F4D6B3 /* AppDelegate.swift in Sources */,
+				5D27BD8C27DE1D9A001AFC95 /* UIFont+Ext.swift in Sources */,
 				5D6EA8CB2700A28300F4D6B3 /* MainPageMenuHelper.swift in Sources */,
 				5D902E9827984EC400E281E6 /* ResultTitleTableViewCell.swift in Sources */,
 				5D902E912798368400E281E6 /* TwoButtonTableViewCell.swift in Sources */,
 				5D902E9F27993F5100E281E6 /* GiftResultModel.swift in Sources */,
 				5D6EA88627009C9600F4D6B3 /* SceneDelegate.swift in Sources */,
+				5DBB9A8F27CAC8BF0084788F /* OneButtonTableViewCell.swift in Sources */,
 				5D6EA8CA2700A28300F4D6B3 /* MainPageCollectionViewCell.swift in Sources */,
 				5D03FC2B277B893300BB62AF /* ResultModel.swift in Sources */,
 				5D902EA927995A5E00E281E6 /* GiftResultTableViewCell.swift in Sources */,
 				5D6EA8BB2700A25E00F4D6B3 /* SelfSizedTableView.swift in Sources */,
 				5D6EA8C32700A26900F4D6B3 /* InputTableViewCell.swift in Sources */,
 				5D03FC30277B898B00BB62AF /* TeamsResultModel.swift in Sources */,
+				5DBB9A9327CB97CB0084788F /* UIColor+Ext.swift in Sources */,
 				5D6EA8D22700A28D00F4D6B3 /* SortResultTableViewCell.swift in Sources */,
 				5D03FC1A277B7E8300BB62AF /* TeamsResultTableViewCell.swift in Sources */,
 				5D03FC25277B825100BB62AF /* TeamsResultInnerTableViewCell.swift in Sources */,
@@ -645,7 +685,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MTKGU75Y2Y;
 				INFOPLIST_FILE = KuraUygulamasi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -663,7 +705,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MTKGU75Y2Y;
 				INFOPLIST_FILE = KuraUygulamasi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
