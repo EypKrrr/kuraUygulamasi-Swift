@@ -7,16 +7,16 @@
 
 import UIKit
 
-class ViewController: BaseViewController {
+fianl class ViewController: BaseViewController {
 
-    let collectionView = UICollectionView(frame: .zero , collectionViewLayout: UICollectionViewFlowLayout())
+    private let collectionView = UICollectionView(frame: .zero , collectionViewLayout: UICollectionViewFlowLayout())
     
     var menuList : [MainPageMenuType] = MainPageMenuHelper.menuItems
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(MainPageCollectionViewCell.self, forCellWithReuseIdentifier: MainPageCollectionViewCell.identifier)
+        collectionView.register(MainPageCollectionViewCell.self, forCellWithReuseIdentifier: MainPageCollectionViewCell.nameOfClass)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
@@ -38,7 +38,7 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainPageCollectionViewCell.identifier, for: indexPath) as! MainPageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainPageCollectionViewCell.nameOfClass, for: indexPath) as! MainPageCollectionViewCell
         cell.setFields(imageName: menuList[indexPath.row].iamgeName, titleText: menuList[indexPath.row].title)
         return cell
     }

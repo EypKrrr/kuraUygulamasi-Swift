@@ -40,20 +40,20 @@ class GiftViewController: BaseViewController {
         giftTableView.delegate = self
         giftTableView.dataSource = self
         
-        let twoButtonCell = UINib(nibName: TwoButtonTableViewCell.identifier, bundle: nil)
-        giftTableView.register(twoButtonCell, forCellReuseIdentifier: TwoButtonTableViewCell.identifier)
+        let twoButtonCell = UINib(nibName: TwoButtonTableViewCell.nameOfClass, bundle: nil)
+        giftTableView.register(twoButtonCell, forCellReuseIdentifier: TwoButtonTableViewCell.nameOfClass)
         
-        let inputCell = UINib(nibName: InputTableViewCell.identifier, bundle: nil)
-        giftTableView.register(inputCell, forCellReuseIdentifier: InputTableViewCell.identifier)
+        let inputCell = UINib(nibName: InputTableViewCell.nameOfClass, bundle: nil)
+        giftTableView.register(inputCell, forCellReuseIdentifier: InputTableViewCell.nameOfClass)
         
-        let resultTitleCell = UINib(nibName: ResultTitleTableViewCell.identifier, bundle: nil)
-        giftTableView.register(resultTitleCell, forCellReuseIdentifier: ResultTitleTableViewCell.identifier)
+        let resultTitleCell = UINib(nibName: ResultTitleTableViewCell.nameOfClass, bundle: nil)
+        giftTableView.register(resultTitleCell, forCellReuseIdentifier: ResultTitleTableViewCell.nameOfClass)
         
-        let resultCell = UINib(nibName: GiftResultTableViewCell.identifier, bundle: nil)
-        giftTableView.register(resultCell, forCellReuseIdentifier: GiftResultTableViewCell.identifier)
+        let resultCell = UINib(nibName: GiftResultTableViewCell.nameOfClass, bundle: nil)
+        giftTableView.register(resultCell, forCellReuseIdentifier: GiftResultTableViewCell.nameOfClass)
         
-        let oneButtonCell = UINib(nibName: OneButtonTableViewCell.identifier, bundle: nil)
-        giftTableView.register(oneButtonCell, forCellReuseIdentifier: OneButtonTableViewCell.identifier)
+        let oneButtonCell = UINib(nibName: OneButtonTableViewCell.nameOfClass, bundle: nil)
+        giftTableView.register(oneButtonCell, forCellReuseIdentifier: OneButtonTableViewCell.nameOfClass)
     }
     
     func distributeGifts() {
@@ -62,8 +62,8 @@ class GiftViewController: BaseViewController {
         for item in giftItems {
             let indexPath = IndexPath(row: item.id - 1, section: TableSection.giftInput.rawValue)
             let giftCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
-            if giftCell.input.text ?? "" != ""{
-                let giftText = giftCell.input.text ?? ""
+            if let inputText = giftCell.getInputText(), !inputText.isEmpty {
+                let giftText = inputText
                 giftItems[item.id - 1].value = giftText
                 giftResults.append(GiftResultModel(id: item.id, giftValue: giftText))
             }else{
@@ -76,8 +76,8 @@ class GiftViewController: BaseViewController {
         for item in fieldItems {
             let indexPath = IndexPath(row: item.id - 1, section: TableSection.input.rawValue)
             let fieldCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
-            if fieldCell.input.text ?? "" != ""{
-                fieldItems[item.id - 1].value = fieldCell.input.text ?? ""
+            if let inputText = fieldCell.getInputText(), !inputText.isEmpty {
+                fieldItems[item.id - 1].value = inputText
             }else{
                 showAlert(title: "Uyarı", message: "\(item.id). Alan boş", buttonTitle: "Tamam", handler: nil)
                 return
@@ -153,33 +153,33 @@ extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == TableSection.giftInput.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.nameOfClass, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: giftItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: giftItems[indexPath.row].value, fieldType: .gift)
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.twoButton.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.identifier, for: indexPath) as! TwoButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.nameOfClass, for: indexPath) as! TwoButtonTableViewCell
             cell.setButtonTitles(leftBtnTitle: "Hediye Ekle", rightBtnTitle: "Yeni Kişi Ekle")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.input.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.nameOfClass, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: fieldItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: fieldItems[indexPath.row].value, fieldType: .defaultType)
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.oneButton.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: OneButtonTableViewCell.identifier, for: indexPath) as! OneButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: OneButtonTableViewCell.nameOfClass, for: indexPath) as! OneButtonTableViewCell
             cell.setButtonTitle(title: "Hediyeleri Dağıt")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.resultTitle.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.identifier, for: indexPath) as! ResultTitleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.nameOfClass, for: indexPath) as! ResultTitleTableViewCell
             cell.setTitle(text: "Talihliler")
             return cell
         }else if indexPath.section == TableSection.result.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: GiftResultTableViewCell.identifier, for: indexPath) as! GiftResultTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: GiftResultTableViewCell.nameOfClass, for: indexPath) as! GiftResultTableViewCell
             cell.setFields(leftText: giftResults[indexPath.row].giftValue, rightText: giftResults[indexPath.row].personName)
             return cell
         }
@@ -243,7 +243,7 @@ extension GiftViewController: InputCellDelegate {
                 for (index, item) in giftItems.enumerated() {
                     let indexPath = IndexPath(row: item.id - 1, section: section)
                     let inputCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
-                    giftItems[item.id - 1].value = inputCell.input.text ?? ""
+                    giftItems[item.id - 1].value = inputCell.getInputText() ?? ""
                     if index >= row {
                         giftItems[index].id -= 1
                     }
@@ -255,8 +255,8 @@ extension GiftViewController: InputCellDelegate {
             }else if section == TableSection.input.rawValue {
                 for (index, item) in fieldItems.enumerated() {
                     let indexPath = IndexPath(row: item.id - 1, section: section)
-                    let inputCell = giftTableView.cellForRow(at: indexPath) as! InputTableViewCell
-                    fieldItems[item.id - 1].value = inputCell.input.text ?? ""
+                    guard let inputCell = giftTableView.cellForRow(at: indexPath) as InputTableViewCell else { return }
+                    fieldItems[item.id - 1].value = inputCell.getInputText() ?? ""
                     if index >= row {
                         fieldItems[index].id -= 1
                     }

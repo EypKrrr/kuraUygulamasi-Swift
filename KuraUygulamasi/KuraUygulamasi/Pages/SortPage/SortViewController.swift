@@ -56,17 +56,17 @@ class SortViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let twoButtonCell = UINib(nibName: TwoButtonTableViewCell.identifier, bundle: nil)
-        tableView.register(twoButtonCell, forCellReuseIdentifier: TwoButtonTableViewCell.identifier)
+        let twoButtonCell = UINib(nibName: TwoButtonTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(twoButtonCell, forCellReuseIdentifier: TwoButtonTableViewCell.nameOfClass)
         
-        let inputCell = UINib(nibName: InputTableViewCell.identifier, bundle: nil)
-        tableView.register(inputCell, forCellReuseIdentifier: InputTableViewCell.identifier)
+        let inputCell = UINib(nibName: InputTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(inputCell, forCellReuseIdentifier: InputTableViewCell.nameOfClass)
         
-        let resultTitleCell = UINib(nibName: ResultTitleTableViewCell.identifier, bundle: nil)
-        tableView.register(resultTitleCell, forCellReuseIdentifier: ResultTitleTableViewCell.identifier)
+        let resultTitleCell = UINib(nibName: ResultTitleTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(resultTitleCell, forCellReuseIdentifier: ResultTitleTableViewCell.nameOfClass)
         
-        let resultCell = UINib(nibName: SortResultTableViewCell.identifier, bundle: nil)
-        tableView.register(resultCell, forCellReuseIdentifier: SortResultTableViewCell.identifier)
+        let resultCell = UINib(nibName: SortResultTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(resultCell, forCellReuseIdentifier: SortResultTableViewCell.nameOfClass)
 
     }
     
@@ -74,8 +74,8 @@ class SortViewController: BaseViewController {
         for item in inputItems {
             let indexPath = IndexPath(row: item.id - 1, section: TableSection.input.rawValue)
             let multilineCell = tableView.cellForRow(at: indexPath) as! InputTableViewCell
-            if multilineCell.input.text ?? "" != ""{
-                inputItems[item.id - 1].value = multilineCell.input.text ?? ""
+            if let inputText = multilineCell.getInputText(), !inputText.isEmpty {
+                inputItems[item.id - 1].value = inputText
             }else{
                 showAlert(title: "Uyarı", message: "\(item.id). Alan boş", buttonTitle: "Tamam", handler: nil)
                 return
@@ -148,22 +148,22 @@ extension SortViewController :UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == TableSection.input.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.nameOfClass, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: inputItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: inputItems[indexPath.row].value, fieldType: .defaultType)
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.twoButton.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.identifier, for: indexPath) as! TwoButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.nameOfClass, for: indexPath) as! TwoButtonTableViewCell
             cell.setButtonTitles(leftBtnTitle: "Yeni Kişi Ekle", rightBtnTitle: "Sıraya Sok")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.resultTitle.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.identifier, for: indexPath) as! ResultTitleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.nameOfClass, for: indexPath) as! ResultTitleTableViewCell
             cell.setTitle(text: "Sıralama")
             return cell
         }else if indexPath.section == TableSection.result.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: SortResultTableViewCell.identifier, for: indexPath) as! SortResultTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: SortResultTableViewCell.nameOfClass, for: indexPath) as! SortResultTableViewCell
             cell.setLabels(queText: resultItems[indexPath.row].id, descriptionText: resultItems[indexPath.row].value)
             return cell
         }
@@ -196,7 +196,7 @@ extension SortViewController: InputCellDelegate {
             for (index, item) in inputItems.enumerated() {
                 let indexPath = IndexPath(row: item.id - 1, section: section)
                 let inputCell = self.tableView.cellForRow(at: indexPath) as! InputTableViewCell
-                inputItems[item.id - 1].value = inputCell.input.text ?? ""
+                inputItems[item.id - 1].value = inputCell.getInputText() ?? ""
                 if index >= row {
                     inputItems[index].id -= 1
                 }

@@ -37,20 +37,20 @@ class TeamsViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        let twoButtonCell = UINib(nibName: TwoButtonTableViewCell.identifier, bundle: nil)
-        tableView.register(twoButtonCell, forCellReuseIdentifier: TwoButtonTableViewCell.identifier)
+        let twoButtonCell = UINib(nibName: TwoButtonTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(twoButtonCell, forCellReuseIdentifier: TwoButtonTableViewCell.nameOfClass)
         
-        let inputCell = UINib(nibName: InputTableViewCell.identifier, bundle: nil)
-        tableView.register(inputCell, forCellReuseIdentifier: InputTableViewCell.identifier)
+        let inputCell = UINib(nibName: InputTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(inputCell, forCellReuseIdentifier: InputTableViewCell.nameOfClass)
         
-        let wheelPickerCell = UINib(nibName: WheelPickerTableViewCell.identifier, bundle: nil)
-        tableView.register(wheelPickerCell, forCellReuseIdentifier: WheelPickerTableViewCell.identifier)
+        let wheelPickerCell = UINib(nibName: WheelPickerTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(wheelPickerCell, forCellReuseIdentifier: WheelPickerTableViewCell.nameOfClass)
         
-        let resultTitleCell = UINib(nibName: ResultTitleTableViewCell.identifier, bundle: nil)
-        tableView.register(resultTitleCell, forCellReuseIdentifier: ResultTitleTableViewCell.identifier)
+        let resultTitleCell = UINib(nibName: ResultTitleTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(resultTitleCell, forCellReuseIdentifier: ResultTitleTableViewCell.nameOfClass)
         
-        let teamsResultCell = UINib(nibName: TeamsResultTableViewCell.identifier, bundle: nil)
-        tableView.register(teamsResultCell, forCellReuseIdentifier: TeamsResultTableViewCell.identifier)
+        let teamsResultCell = UINib(nibName: TeamsResultTableViewCell.nameOfClass, bundle: nil)
+        tableView.register(teamsResultCell, forCellReuseIdentifier: TeamsResultTableViewCell.nameOfClass)
     }
     
     func assignTeams() {
@@ -59,8 +59,8 @@ class TeamsViewController: BaseViewController {
         for item in inputItems {
             let indexPath = IndexPath(row: item.id - 1, section: TableSection.input.rawValue)
             let multilineCell = tableView.cellForRow(at: indexPath) as! InputTableViewCell
-            if multilineCell.input.text ?? "" != ""{
-                inputItems[item.id - 1].value = multilineCell.input.text ?? ""
+            if let inputText = multilineCell.getInputText(), !inputText.isEmpty {
+                inputItems[item.id - 1].value = inputText
             }else{
                 showAlert(title: "Uyarı", message: "\(item.id). Alan boş", buttonTitle: "Tamam", handler: nil)
                 return
@@ -99,7 +99,7 @@ class TeamsViewController: BaseViewController {
         
         let pickerIndex = IndexPath(row: 0, section: TableSection.teamCountPicker.rawValue)
         let pickerCell = tableView.cellForRow(at: pickerIndex) as! WheelPickerTableViewCell
-        pickerCell.pickerTextField.text = ""
+        pickerCell.cleanTextField()
         
         inputItems.append(InputModel(id: 1, value: ""))
         inputItems.append(InputModel(id: 2, value: ""))
@@ -154,26 +154,26 @@ extension TeamsViewController :  UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == TableSection.input.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.identifier, for: indexPath) as! InputTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: InputTableViewCell.nameOfClass, for: indexPath) as! InputTableViewCell
             cell.setLabel(index: inputItems[indexPath.row].id, sectionNumber: indexPath.section, inputText: inputItems[indexPath.row].value, fieldType: .defaultType)
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.teamCountPicker.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: WheelPickerTableViewCell.identifier, for: indexPath) as! WheelPickerTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: WheelPickerTableViewCell.nameOfClass, for: indexPath) as! WheelPickerTableViewCell
             cell.setCell(pickerTitle: "Takım Sayısı")
             return cell
         }else if indexPath.section == TableSection.twoButton.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.identifier, for: indexPath) as! TwoButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TwoButtonTableViewCell.nameOfClass, for: indexPath) as! TwoButtonTableViewCell
             cell.setButtonTitles(leftBtnTitle: "Yeni Kişi Ekle", rightBtnTitle: "Takımlara Ayır")
             cell.tag = indexPath.section
             cell.delegate = self
             return cell
         }else if indexPath.section == TableSection.resultTitle.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.identifier, for: indexPath) as! ResultTitleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ResultTitleTableViewCell.nameOfClass, for: indexPath) as! ResultTitleTableViewCell
             cell.setTitle(text: "Takımlar")
             return cell
         }else if indexPath.section == TableSection.result.rawValue{
-            let cell = tableView.dequeueReusableCell(withIdentifier: TeamsResultTableViewCell.identifier, for: indexPath) as! TeamsResultTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TeamsResultTableViewCell.nameOfClass, for: indexPath) as! TeamsResultTableViewCell
             cell.fillCell(currentTeam: self.resultItems[indexPath.row])
             return cell
         }
@@ -205,12 +205,13 @@ extension TeamsViewController : TwoButtonCellDelegate{
 
 //InputCell Delegate method
 extension TeamsViewController: InputCellDelegate {
+    
     func trashButtonTapped(row: Int, section: Int) {
         if inputItems.count > 2 {
             for (index, item) in inputItems.enumerated() {
                 let indexPath = IndexPath(row: item.id - 1, section: section)
                 let inputCell = tableView.cellForRow(at: indexPath) as! InputTableViewCell
-                inputItems[item.id - 1].value = inputCell.input.text ?? ""
+                inputItems[item.id - 1].value = inputCell.getInputText() ?? ""
                 if index >= row {
                     inputItems[index].id -= 1
                 }

@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIFont {
+    
     class func HelveticaNeueRegularWith(size: CGFloat) -> UIFont {
         return UIFont(name: "HelveticaNeue", size: size) ?? UIFont.systemFont(ofSize: size)
     }

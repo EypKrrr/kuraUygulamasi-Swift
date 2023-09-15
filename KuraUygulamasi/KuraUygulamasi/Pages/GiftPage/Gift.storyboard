@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jdv-ot-DyB">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Gift View Controller-->
+        <scene sceneID="kjo-Jm-hKZ">
+            <objects>
+                <viewController storyboardIdentifier="GiftVC" id="Jdv-ot-DyB" customClass="GiftViewController" customModule="KuraUygulamasi" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7jS-Op-0bC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7eH-Hq-rUn">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" name="OrderPageBgColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tB0-2e-I9M"/>
+                        <color key="backgroundColor" name="OrderPageBgColor"/>
+                        <constraints>
+                            <constraint firstItem="tB0-2e-I9M" firstAttribute="trailing" secondItem="7eH-Hq-rUn" secondAttribute="trailing" id="PbB-k3-BYh"/>
+                            <constraint firstItem="7eH-Hq-rUn" firstAttribute="leading" secondItem="tB0-2e-I9M" secondAttribute="leading" id="Tfh-Vd-xTZ"/>
+                            <constraint firstItem="7eH-Hq-rUn" firstAttribute="top" secondItem="tB0-2e-I9M" secondAttribute="top" id="beb-Yf-3Xl"/>
+                            <constraint firstItem="tB0-2e-I9M" firstAttribute="bottom" secondItem="7eH-Hq-rUn" secondAttribute="bottom" id="das-lE-q0V"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="giftTableView" destination="7eH-Hq-rUn" id="tYp-5Z-TH9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pQJ-CL-n1q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1059" y="-2"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="OrderPageBgColor">
+            <color red="0.41999998688697815" green="0.45100000500679016" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
