@@ -7,21 +7,20 @@
 
 import UIKit
 
-fianl class ViewController: BaseViewController {
+final class MenuViewController: BaseViewController {
 
-    private let collectionView = UICollectionView(frame: .zero , collectionViewLayout: UICollectionViewFlowLayout())
+    @IBOutlet private weak var collectionView: UICollectionView!
     
     var menuList : [MainPageMenuType] = MainPageMenuHelper.menuItems
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MainPageCollectionViewCell.self, forCellWithReuseIdentifier: MainPageCollectionViewCell.nameOfClass)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
-        self.view.addSubview(collectionView)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,7 +31,7 @@ fianl class ViewController: BaseViewController {
 
 }
 
-extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+extension MenuViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return menuList.count
     }
@@ -49,7 +48,7 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     }
 }
 
-extension ViewController : UICollectionViewDelegateFlowLayout{
+extension MenuViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (view.frame.size.width/2)-20, height: (view.frame.size.width/2)-20)
     }
